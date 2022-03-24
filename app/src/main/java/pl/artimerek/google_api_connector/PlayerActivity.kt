@@ -1,5 +1,6 @@
 package pl.artimerek.google_api_connector
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,12 +15,14 @@ const val YT_PLAYLIST_ID = "PLa2kwLIoLbrd2Yw6d8aFNRsNqPeU2HaGQ"
 
 class PlayerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
 
+    private val DIALOG_REQUEST_CODE = 1
+    private val playerView by lazy { YouTubePlayerView(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val layout = layoutInflater.inflate(R.layout.activity_player, null) as ConstraintLayout
         setContentView(layout)
 
-        val playerView = YouTubePlayerView(this)
         playerView.layoutParams = ConstraintLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
@@ -51,10 +54,8 @@ class PlayerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         provider: YouTubePlayer.Provider?,
         initResult: YouTubeInitializationResult?
     ) {
-        val REQUEST_CODE = 0
-
         if (initResult?.isUserRecoverableError == true) {
-            initResult.getErrorDialog(this, REQUEST_CODE).show()
+            initResult.getErrorDialog(this, DIALOG_REQUEST_CODE).show()
         } else {
             val errorMessage = "Init error $initResult"
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
@@ -106,6 +107,13 @@ class PlayerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         override fun onError(p0: YouTubePlayer.ErrorReason?) {
 
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (requestCode == DIALOG_REQUEST_CODE) {
+            playerView.initialize(getString(R.string.GOOGLE_API_KEY), this)
         }
     }
 }
