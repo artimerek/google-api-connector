@@ -9,7 +9,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 
-const val YT_VIDEO_ID = "z7lutJdxQYw"
+const val YT_VIDEO_ID = "BBGEG21CGo0"
 const val YT_PLAYLIST_ID = "PLa2kwLIoLbrd2Yw6d8aFNRsNqPeU2HaGQ"
 
 class PlayerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
@@ -22,7 +22,8 @@ class PlayerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         val playerView = YouTubePlayerView(this)
         playerView.layoutParams = ConstraintLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT)
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
 
         layout.addView(playerView)
         playerView.initialize(getString(R.string.GOOGLE_API_KEY), this)
@@ -34,13 +35,15 @@ class PlayerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         ytPlayer: YouTubePlayer?,
         wasRestored: Boolean
     ) {
-       Toast.makeText(this, "Init success", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Init success", Toast.LENGTH_SHORT).show()
 
         ytPlayer?.setPlayerStateChangeListener(playerStateChangeListener)
         ytPlayer?.setPlaybackEventListener(playbackEventListener)
 
-        if (!wasRestored){
-            ytPlayer?.cueVideo(YT_VIDEO_ID)
+        if (!wasRestored) {
+            ytPlayer?.loadVideo(YT_VIDEO_ID)
+        } else {
+            ytPlayer?.play()
         }
     }
 
@@ -50,15 +53,15 @@ class PlayerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     ) {
         val REQUEST_CODE = 0
 
-        if (initResult?.isUserRecoverableError == true){
+        if (initResult?.isUserRecoverableError == true) {
             initResult.getErrorDialog(this, REQUEST_CODE).show()
-        }else{
+        } else {
             val errorMessage = "Init error $initResult"
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
         }
     }
 
-    private val playbackEventListener = object: YouTubePlayer.PlaybackEventListener{
+    private val playbackEventListener = object : YouTubePlayer.PlaybackEventListener {
         override fun onPlaying() {
             Toast.makeText(this@PlayerActivity, "Good, video is playing", Toast.LENGTH_SHORT).show()
         }
@@ -80,7 +83,7 @@ class PlayerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-    private val playerStateChangeListener = object: YouTubePlayer.PlayerStateChangeListener{
+    private val playerStateChangeListener = object : YouTubePlayer.PlayerStateChangeListener {
         override fun onLoading() {
 
         }

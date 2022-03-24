@@ -14,12 +14,8 @@
         android:theme="@style/Theme.Googleapiconnector">
         <activity
             android:name=".PlayerActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="true"
+            android:label="Player">
         </activity>
         <activity
             android:name=".MainActivity"
@@ -29,6 +25,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".StandaloneActivity"
+            android:exported="true"
+            android:label="Standalone">
         </activity>
     </application>
 

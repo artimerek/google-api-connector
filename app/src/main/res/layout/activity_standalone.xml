@@ -3,25 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/buttonPlaySingle"
+        android:id="@+id/buttonPlayVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Single"
+        android:text="Gandalf Party"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonStandalone"
+        android:id="@+id/buttonPlaylist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Standalone Menu"
-        app:layout_constraintStart_toStartOf="@+id/buttonPlaySingle"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlaySingle" />
+        android:layout_marginTop="20dp"
+        android:text="Playlist"
+        app:layout_constraintStart_toStartOf="@+id/buttonPlayVideo"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPlayVideo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
